@@ -9,8 +9,7 @@
 <body>
 <div class="registration-form">
     <h2>Регистрация</h2>
-    <form action="/register" method="POST">
-        <!-- Поле Имя -->
+    <form action="action.php" method="POST">
         <div class="form-group">
             <label for="name">Имя:</label>
             <input type="text" id="name" name="name" placeholder="Введите имя" required>

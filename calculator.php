@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>Простой калькулятор</title>
@@ -7,36 +7,44 @@
 <body>
 
 <form method="POST">
-    <input type="number" name="a" placeholder="Первое число" required>
-    <input type="number" name="b" placeholder="Второе число" required>
+    <input type="number" name="a" placeholder="Первое число" required step="any">
+    <input type="number" name="b" placeholder="Второе число" required step="any">
     
-    <button type="submit" name="op" value="+">+</button>
-    <button type="submit" name="op" value="-">-</button>
-    <button type="submit" name="op" value="*">*</button>
-    <button type="submit" name="op" value="/">/</button>
+    <button type="submit" name="operation" value="+">+</button>
+    <button type="submit" name="operation" value="-">-</button>
+    <button type="submit" name="operation" value="*">*</button>
+    <button type="submit" name="operation" value="/">/</button>
 </form>
 
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $a = floatval($_POST['a']);
     $b = floatval($_POST['b']);
-    $op = $_POST['op'];
-    $result = 0;
+    $op = $_POST['operation']; 
+    $result = '';
 
     switch ($op) {
-        case '+': $result = $a + $b; break;
-        case '-': $result = $a - $b; break;
-        case '*': $result = $a * $b; break;
-        case '/': 
-            if ($b != 0) {
-                $result = $a / $b;
+        case '+':
+            $result = $a + $b;
+            break;
+        case '-':
+            $result = $a - $b;
+            break;
+        case '*':
+            $result = $a * $b;
+            break;
+        case '/':
+            if ($b == 0) {
+                $result = "❌ Ошибка: деление на ноль невозможно!";
             } else {
-                $result = "Ошибка: деление на ноль";
+                $result = $a / $b;
             }
             break;
+        default:
+            $result = "❌ Неизвестная операция";
     }
 
-    echo "<h2>Результат: $result</h2>";
+    echo "<h3>Результат: " . htmlspecialchars($result) . "</h3>";
 }
 ?>
 
